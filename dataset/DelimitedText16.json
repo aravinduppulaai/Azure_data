@@ -18,8 +18,7 @@
 				"fileName": {
 					"value": "@dataset().fileName",
 					"type": "Expression"
-				},
-				"fileSystem": "incremetalload"
+				}
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
