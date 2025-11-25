@@ -1,0 +1,28 @@
+{
+	"name": "ds_sql11",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_OnPrem_Nandu_SQL_Server",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_ds_tablelist": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "Nandu_ds"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "Production",
+			"table": {
+				"value": "@dataset().p_ds_tablelist",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

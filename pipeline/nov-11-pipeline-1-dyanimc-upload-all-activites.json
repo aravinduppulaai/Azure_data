@@ -1,0 +1,234 @@
+{
+	"name": "nov-11-pipeline-1-dyanimc-upload-all-activites",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Table List",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "SELECT \n    TABLE_SCHEMA,\n    TABLE_NAME\nFROM INFORMATION_SCHEMA.TABLES\nWHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_SCHEMA ='sales'\nORDER BY TABLE_SCHEMA, TABLE_NAME;",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "SqlServerTable2",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get Table List",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Table List').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "If Condition1_copy1",
+							"type": "IfCondition",
+							"dependsOn": [
+								{
+									"activity": "GetFileInfo",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@equals(activity('GetFileInfo').output.exists, true)",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "Copy_SQL_to_ADLS_copy1",
+										"type": "Copy",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "SqlServerSource",
+												"sqlReaderQuery": {
+													"value": "@concat('SELECT * FROM [', item().TABLE_SCHEMA, '].[', item().TABLE_NAME, ']')\n",
+													"type": "Expression"
+												},
+												"queryTimeout": "02:00:00",
+												"partitionOption": "None"
+											},
+											"sink": {
+												"type": "DelimitedTextSink",
+												"storeSettings": {
+													"type": "AzureBlobFSWriteSettings"
+												},
+												"formatSettings": {
+													"type": "DelimitedTextWriteSettings",
+													"quoteAllText": true,
+													"fileExtension": ".txt"
+												}
+											},
+											"enableStaging": false,
+											"translator": {
+												"type": "TabularTranslator",
+												"typeConversion": true,
+												"typeConversionSettings": {
+													"allowDataTruncation": true,
+													"treatBooleanAsNumber": false
+												}
+											}
+										},
+										"inputs": [
+											{
+												"referenceName": "Source",
+												"type": "DatasetReference",
+												"parameters": {
+													"schemaName": {
+														"value": "@item().TABLE_SCHEMA",
+														"type": "Expression"
+													},
+													"TableName": "@item().TABLE_NAME"
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "slink",
+												"type": "DatasetReference",
+												"parameters": {
+													"schemaName": {
+														"value": "@item().TABLE_SCHEMA",
+														"type": "Expression"
+													},
+													"tableName": "@item().TABLE_NAME"
+												}
+											}
+										]
+									},
+									{
+										"name": "Append variable1_copy2",
+										"type": "AppendVariable",
+										"dependsOn": [
+											{
+												"activity": "Copy_SQL_to_ADLS_copy1",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "log_message",
+											"value": {
+												"value": "@concat(item().TABLE_SCHEMA, '.', item().TABLE_NAME, ' copied successfully; ')",
+												"type": "Expression"
+											}
+										}
+									}
+								]
+							}
+						},
+						{
+							"name": "GetFileInfo",
+							"type": "GetMetadata",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataset": {
+									"referenceName": "sqlsqlserver",
+									"type": "DatasetReference",
+									"parameters": {
+										"schemaName": "@item().TABLE_SCHEMA",
+										"tableName": "@item().TABLE_NAME"
+									}
+								},
+								"fieldList": [
+									"exists",
+									"structure"
+								]
+							}
+						},
+						{
+							"name": "Append variable1",
+							"type": "AppendVariable",
+							"dependsOn": [
+								{
+									"activity": "GetFileInfo",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "FileCheckLog",
+								"value": {
+									"value": "@string(activity('GetFileInfo').output.exists)",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"FileCheckLog": {
+				"type": "array"
+			}
+		},
+		"variables": {
+			"log_message": {
+				"type": "Array"
+			},
+			"FileCheckLog": {
+				"type": "Array"
+			}
+		},
+		"folder": {
+			"name": "aravind"
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-11-24T08:16:36Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,36 @@
+{
+	"name": "DS_Gen2_sales_LT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_GEN2_SINK19NOV",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"P_Gen2_FileName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "20NOV2025"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@concat('SalesLT.',dataset().P_Gen2_FileName,'.csv')",
+					"type": "Expression"
+				},
+				"folderPath": "SQL_server_Sink_Gen2",
+				"fileSystem": "nandu-on-prem-data"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

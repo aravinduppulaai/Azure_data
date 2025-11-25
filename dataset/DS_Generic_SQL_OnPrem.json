@@ -1,0 +1,25 @@
+{
+	"name": "DS_Generic_SQL_OnPrem",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_OnPrem_SQLServer_WWI",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_table_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "Sales",
+			"table": {
+				"value": "@dataset().p_table_name",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

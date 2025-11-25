@@ -1,0 +1,21 @@
+{
+	"name": "LS_OnPrem_Nandu_SQL_Server",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": "srimannarayana\\sqlexpress",
+			"database": "WideWorldImporters",
+			"encrypt": "mandatory",
+			"trustServerCertificate": true,
+			"authenticationType": "SQL",
+			"userName": "sa",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI2YTNjY2Q1Zi0xNDZhLTQ0ZjEtYmUwMS03YWIwZDZiZmIwOTgiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "IR-Nandu-System",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

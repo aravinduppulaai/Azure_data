@@ -1,0 +1,28 @@
+{
+	"name": "DS_SqlServer",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Ls_SqlServer_src",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"P_ds_sql_src": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "18-11-2025"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "HumanResources",
+			"table": {
+				"value": "@dataset().P_ds_sql_src",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

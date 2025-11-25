@@ -1,0 +1,34 @@
+{
+	"name": "DS_SqlServer_1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Ls_SqlServer_src",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_Dsschema": {
+				"type": "string"
+			},
+			"p_Dstname": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "18-11-2025"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().p_Dsschema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().p_Dstname",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

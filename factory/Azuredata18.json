@@ -1,0 +1,9 @@
+{
+	"name": "Azuredata18",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a8ad0389-15f0-4e7f-8a1f-d80dcd553540",
+		"tenantId": "cca0b62c-6b3a-4739-a448-88b329066072"
+	}
+}

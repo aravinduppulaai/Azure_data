@@ -1,0 +1,28 @@
+{
+	"name": "DS_SQL_srcnew",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_OnPrem_Nandu_SQL_Server",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_filename": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "21nov2025"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "purchasing",
+			"table": {
+				"value": "@dataset().p_filename",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

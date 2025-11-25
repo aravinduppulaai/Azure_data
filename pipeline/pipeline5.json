@@ -1,0 +1,91 @@
+{
+	"name": "pipeline5",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@createArray('SalesTaxRate',\n'PersonCreditCard',\n'SalesTerritory',\n'vIndividualCustomer',\n'vPersonDemographics',\n'vSalesPerson',\n'SalesTerritoryHistory',\n'vSalesPersonSalesByFiscalYears',\n'vStoreWithDemographics',\n'vStoreWithContacts',\n'vStoreWithAddresses',\n'ShoppingCartItem',\n'SpecialOffer',\n'SpecialOfferProduct',\n'Store',\n'CountryRegionCurrency',\n'CreditCard',\n'Currency',\n'CurrencyRate',\n'Customer',\n'SalesOrderDetail',\n'SalesOrderHeader',\n'SalesOrderHeaderSalesReason',\n'SalesPerson',\n'SalesPersonQuotaHistory',\n'SalesReason')",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "DS_Sql_sales",
+									"type": "DatasetReference",
+									"parameters": {
+										"P_Sales_FileName": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_GEN2_SALES",
+									"type": "DatasetReference",
+									"parameters": {
+										"P_Gen2_Sales_FileName": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"folder": {
+			"name": "19NOV2025"
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-11-19T09:40:10Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

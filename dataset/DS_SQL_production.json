@@ -1,0 +1,28 @@
+{
+	"name": "DS_SQL_production",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_OnPrem_Nandu_SQL_Server",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"P_SRC_FileName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "19NOV2025"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "production",
+			"table": {
+				"value": "@dataset().P_SRC_FileName",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

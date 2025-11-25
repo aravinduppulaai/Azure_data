@@ -1,0 +1,36 @@
+{
+	"name": "DS_GEN2_Production",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_GEN2_SINK19NOV",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"P_SINK_FileName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "19NOV2025"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@concat('Production.',dataset().P_SINK_FileName,'.csv')",
+					"type": "Expression"
+				},
+				"folderPath": "SQL_server_Sink_Gen2",
+				"fileSystem": "nandu-on-prem-data"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,91 @@
+{
+	"name": "pipeline6",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@createArray('vAdditionalContactInfo',\n'PersonPhone',\n'PhoneNumberType',\n'vStateProvinceCountryRegion',\n'Address',\n'AddressType',\n'StateProvince',\n'BusinessEntity',\n'BusinessEntityAddress',\n'BusinessEntityContact',\n'ContactType',\n'CountryRegion',\n'EmailAddress',\n'Password',\n'Person')",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "DS_Sql_person",
+									"type": "DatasetReference",
+									"parameters": {
+										"P_DS_SQL_FileName": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_Gen2_Person",
+									"type": "DatasetReference",
+									"parameters": {
+										"DS_gen2_FileName": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"folder": {
+			"name": "19NOV2025"
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-11-19T10:02:49Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

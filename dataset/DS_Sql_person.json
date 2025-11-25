@@ -1,0 +1,28 @@
+{
+	"name": "DS_Sql_person",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_OnPrem_Nandu_SQL_Server",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"P_DS_SQL_FileName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "19NOV2025"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "person",
+			"table": {
+				"value": "@dataset().P_DS_SQL_FileName",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

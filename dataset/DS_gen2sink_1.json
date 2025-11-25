@@ -1,0 +1,49 @@
+{
+	"name": "DS_gen2sink_1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_gen2_sink1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_sink_fname": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "18-11-2025"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().p_sink_fname",
+					"type": "Expression"
+				},
+				"folderPath": "gen2sink",
+				"fileSystem": "SQL_server_Sink_Gen2"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "CountryRegionCode",
+				"type": "String"
+			},
+			{
+				"name": "CurrencyCode",
+				"type": "String"
+			},
+			{
+				"name": "ModifiedDate",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

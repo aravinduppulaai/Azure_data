@@ -1,0 +1,95 @@
+{
+	"name": "pipeline3",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@createArray('dbo.DatabaseLog',\r\n'dbo.ErrorLog',\r\n'dbo.AWBuildVersion',\r\n'dbo.employee',\r\n'HumanResources.Department',\r\n'HumanResources.EmployeeDepartmentHistory',\r\n'HumanResources.EmployeePayHistory',\r\n'HumanResources.Employee',\r\n'HumanResources.JobCandidate',\r\n'HumanResources.Shift',\r\n'Person.PhoneNumberType',\r\n'Person.PersonPhone',\r\n'Person.Address',\r\n'Person.AddressType',\r\n'Person.StateProvince',\r\n'Person.BusinessEntity',\r\n'Person.BusinessEntityAddress',\r\n'Person.Password',\r\n'Person.Person',\r\n'Person.EmailAddress',\r\n'Person.BusinessEntityContact',\r\n'Person.ContactType',\r\n'Person.CountryRegion',\r\n'Production.WorkOrder',\r\n'Production.UnitMeasure',\r\n'Production.Document',\r\n'Production.WorkOrderRouting',\r\n'Production.ProductModel',\r\n'Production.Culture',\r\n'Production.Illustration',\r\n'Production.Location',\r\n'Production.TransactionHistoryArchive',\r\n'Production.ProductSubcategory',\r\n'Production.ProductPhoto',\r\n'Production.ProductProductPhoto',\r\n'Production.TransactionHistory',\r\n'Production.ProductReview',\r\n'Production.ProductModelIllustration',\r\n'Production.ProductModelProductDescriptionCulture',\r\n'Production.BillOfMaterials',\r\n'Production.Product',\r\n'Production.ProductCategory',\r\n'Production.ProductListPriceHistory',\r\n'Production.ProductInventory',\r\n'Production.ProductCostHistory',\r\n'Production.ProductDescription',\r\n'Production.ScrapReason',\r\n'Production.ProductDocument',\r\n'Purchasing.ShipMethod',\r\n'Purchasing.ProductVendor',\r\n'Purchasing.PurchaseOrderHeader',\r\n'Purchasing.Vendor',\r\n'Purchasing.PurchaseOrderDetail',\r\n'Sales.CreditCard',\r\n'Sales.CountryRegionCurrency',\r\n'Sales.CurrencyRate',\r\n'Sales.Customer',\r\n'Sales.SalesOrderDetail',\r\n'Sales.Currency',\r\n'Sales.SalesPersonQuotaHistory',\r\n'Sales.SalesReason',\r\n'Sales.SalesOrderHeader',\r\n'Sales.SalesOrderHeaderSalesReason',\r\n'Sales.SalesPerson',\r\n'Sales.Store',\r\n'Sales.SpecialOfferProduct',\r\n'Sales.SalesTerritoryHistory',\r\n'Sales.SalesTerritory',\r\n'Sales.SalesTaxRate',\r\n'Sales.PersonCreditCard',\r\n'Sales.ShoppingCartItem',\r\n'Sales.SpecialOffer'\r\n)",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "DS_SqlServer_1",
+									"type": "DatasetReference",
+									"parameters": {
+										"p_Dsschema": {
+											"value": "@substring(item(), 0, indexOf(item(), '.'))",
+											"type": "Expression"
+										},
+										"p_Dstname": {
+											"value": "@substring(item(), add(indexOf(item(), '.'), 1), sub(length(item()), add(indexOf(item(), '.'), 1)))\n",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_gen2sink_1",
+									"type": "DatasetReference",
+									"parameters": {
+										"p_sink_fname": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"folder": {
+			"name": "18-11-2025"
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-11-18T17:20:43Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

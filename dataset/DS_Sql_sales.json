@@ -1,0 +1,28 @@
+{
+	"name": "DS_Sql_sales",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_OnPrem_Nandu_SQL_Server",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"P_Sales_FileName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "19NOV2025"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "sales",
+			"table": {
+				"value": "@dataset().P_Sales_FileName",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

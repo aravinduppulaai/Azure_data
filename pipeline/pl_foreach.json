@@ -1,0 +1,85 @@
+{
+	"name": "pl_foreach",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@createArray('Product',\n'ScrapReason',\n'ProductCategory',\n'ProductCostHistory',\n'ProductDescription',\n'ProductDocument',\n'ProductInventory',\n'ProductListPriceHistory',\n'ProductModel',\n'ProductModelIllustration',\n'ProductModelProductDescriptionCulture',\n'BillOfMaterials',\n'ProductPhoto',\n'ProductProductPhoto',\n'TransactionHistory',\n'ProductReview',\n'TransactionHistoryArchive',\n'ProductSubcategory',\n'UnitMeasure',\n'WorkOrder',\n'Culture',\n'WorkOrderRouting',\n'Document',\n'Illustration',\n'Location')",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".csv"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_sql11",
+									"type": "DatasetReference",
+									"parameters": {
+										"p_ds_tablelist": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_gen2_sink",
+									"type": "DatasetReference"
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"folder": {
+			"name": "Nandu_pl"
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-11-13T09:43:46Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

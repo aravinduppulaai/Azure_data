@@ -1,0 +1,31 @@
+{
+	"name": "SqlServerTable5",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_OnPrem_SQLServer",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"folderPath": {
+				"type": "string"
+			},
+			"fileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().folderPath",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().fileName",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
