@@ -87,49 +87,6 @@
 							}
 						},
 						{
-							"name": "Stored procedure1",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "If Condition1",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": "[dbo].[UpdateWatermark_WWI_METADATA_SALES]",
-								"storedProcedureParameters": {
-									"CurrentDateTime": {
-										"value": {
-											"value": "@utcNow()",
-											"type": "Expression"
-										},
-										"type": "DateTime"
-									},
-									"DatasetName": {
-										"value": {
-											"value": "@item().DATASET_NAME",
-											"type": "Expression"
-										},
-										"type": "String"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "LS_OnPrem_SQLServer_WWI",
-								"type": "LinkedServiceReference"
-							}
-						},
-						{
 							"name": "Lookup_RowCount",
 							"type": "Lookup",
 							"dependsOn": [
@@ -251,6 +208,49 @@
 												}
 											}
 										]
+									},
+									{
+										"name": "Stored procedure1",
+										"type": "SqlServerStoredProcedure",
+										"dependsOn": [
+											{
+												"activity": "Copy data1",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"storedProcedureName": "[dbo].[UpdateWatermark_WWI_METADATA_SALES]",
+											"storedProcedureParameters": {
+												"CurrentDateTime": {
+													"value": {
+														"value": "@utcNow()",
+														"type": "Expression"
+													},
+													"type": "DateTime"
+												},
+												"DatasetName": {
+													"value": {
+														"value": "@item().DATASET_NAME",
+														"type": "Expression"
+													},
+													"type": "String"
+												}
+											}
+										},
+										"linkedServiceName": {
+											"referenceName": "LS_OnPrem_SQLServer_WWI",
+											"type": "LinkedServiceReference"
+										}
 									}
 								]
 							}
