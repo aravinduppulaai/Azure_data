@@ -108,6 +108,7 @@
 							"typeProperties": {
 								"source": {
 									"type": "SqlServerSource",
+									"sqlReaderQuery": "@concat('SELECT * FROM Sales.',item().DATASET_NAME,' WHERE LastEditedWhen>','''',item().LAST_LOAD_TIME,'''')",
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
 								},
