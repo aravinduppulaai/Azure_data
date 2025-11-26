@@ -1,0 +1,40 @@
+{
+	"name": "onpirsm_adls_sales",
+	"properties": {
+		"activities": [
+			{
+				"name": "get_sales_tables",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "SELECT * FROM SALES_WWI_METADATA\nWHERE STATUS='ACTIVE'",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "sales_linkedin_onpersim",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			}
+		],
+		"folder": {
+			"name": "aravind/2611"
+		},
+		"annotations": []
+	}
+}
