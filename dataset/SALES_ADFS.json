@@ -19,7 +19,10 @@
 					"value": "@concat(dataset().TABLE_NAME,'_',utcNow(),'.CSV')",
 					"type": "Expression"
 				},
-				"folderPath": "bronze-layer",
+				"folderPath": {
+					"value": "@concat('bronze/',dataset().TABLE_NAME)",
+					"type": "Expression"
+				},
 				"fileSystem": "sales-tables"
 			},
 			"columnDelimiter": ",",

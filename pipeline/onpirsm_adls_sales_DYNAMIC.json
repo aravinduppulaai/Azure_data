@@ -87,8 +87,289 @@
 							}
 						},
 						{
-							"name": "Lookup_RowCount",
-							"type": "Lookup",
+							"name": "Switch2",
+							"type": "Switch",
+							"state": "Inactive",
+							"onInactiveMarkAs": "Succeeded",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"on": {
+									"value": "@split(item().DATASET_DESCRIPTION, '.')[0]",
+									"type": "Expression"
+								},
+								"cases": [
+									{
+										"value": "SALES",
+										"activities": [
+											{
+												"name": "If Condition1_copy1",
+												"type": "IfCondition",
+												"dependsOn": [],
+												"userProperties": [],
+												"typeProperties": {
+													"expression": {
+														"value": "@greater(activity('Lookup_RowCount').output.value[0].T, 0)",
+														"type": "Expression"
+													},
+													"ifTrueActivities": [
+														{
+															"name": "Copy data1_copy1",
+															"type": "Copy",
+															"dependsOn": [],
+															"policy": {
+																"timeout": "0.12:00:00",
+																"retry": 0,
+																"retryIntervalInSeconds": 30,
+																"secureOutput": false,
+																"secureInput": false
+															},
+															"userProperties": [],
+															"typeProperties": {
+																"source": {
+																	"type": "SqlServerSource",
+																	"sqlReaderQuery": {
+																		"value": "@concat('SELECT * FROM Sales.',item().DATASET_NAME,' WHERE LastEditedWhen>','''',item().LAST_LOAD_TIME,'''')",
+																		"type": "Expression"
+																	},
+																	"queryTimeout": "02:00:00",
+																	"partitionOption": "None"
+																},
+																"sink": {
+																	"type": "DelimitedTextSink",
+																	"storeSettings": {
+																		"type": "AzureBlobFSWriteSettings"
+																	},
+																	"formatSettings": {
+																		"type": "DelimitedTextWriteSettings",
+																		"quoteAllText": true,
+																		"fileExtension": ".txt"
+																	}
+																},
+																"enableStaging": false,
+																"translator": {
+																	"type": "TabularTranslator",
+																	"typeConversion": true,
+																	"typeConversionSettings": {
+																		"allowDataTruncation": true,
+																		"treatBooleanAsNumber": false
+																	}
+																}
+															},
+															"inputs": [
+																{
+																	"referenceName": "SALES_SOURCE",
+																	"type": "DatasetReference",
+																	"parameters": {
+																		"TABLE_NAME": {
+																			"value": "@item().DATASET_NAME",
+																			"type": "Expression"
+																		},
+																		"SCHEMA_NAME": "SALES"
+																	}
+																}
+															],
+															"outputs": [
+																{
+																	"referenceName": "SALES_ADFS",
+																	"type": "DatasetReference",
+																	"parameters": {
+																		"TABLE_NAME": {
+																			"value": "@item().DATASET_NAME",
+																			"type": "Expression"
+																		}
+																	}
+																}
+															]
+														},
+														{
+															"name": "Stored procedure1_copy1",
+															"type": "SqlServerStoredProcedure",
+															"dependsOn": [
+																{
+																	"activity": "Copy data1_copy1",
+																	"dependencyConditions": [
+																		"Succeeded"
+																	]
+																}
+															],
+															"policy": {
+																"timeout": "0.12:00:00",
+																"retry": 0,
+																"retryIntervalInSeconds": 30,
+																"secureOutput": false,
+																"secureInput": false
+															},
+															"userProperties": [],
+															"typeProperties": {
+																"storedProcedureName": "[dbo].[UpdateWatermark_WWI_METADATA_SALES]",
+																"storedProcedureParameters": {
+																	"CurrentDateTime": {
+																		"value": {
+																			"value": "@utcNow()",
+																			"type": "Expression"
+																		},
+																		"type": "DateTime"
+																	},
+																	"DatasetName": {
+																		"value": {
+																			"value": "@item().DATASET_NAME",
+																			"type": "Expression"
+																		},
+																		"type": "String"
+																	}
+																}
+															},
+															"linkedServiceName": {
+																"referenceName": "LS_OnPrem_SQLServer_WWI",
+																"type": "LinkedServiceReference"
+															}
+														}
+													]
+												}
+											}
+										]
+									},
+									{
+										"value": "Application",
+										"activities": [
+											{
+												"name": "If Condition1_copy2",
+												"type": "IfCondition",
+												"dependsOn": [],
+												"userProperties": [],
+												"typeProperties": {
+													"expression": {
+														"value": "@greater(activity('Lookup_RowCount').output.value[0].T, 0)",
+														"type": "Expression"
+													},
+													"ifTrueActivities": [
+														{
+															"name": "Copy data1_copy2",
+															"type": "Copy",
+															"dependsOn": [],
+															"policy": {
+																"timeout": "0.12:00:00",
+																"retry": 0,
+																"retryIntervalInSeconds": 30,
+																"secureOutput": false,
+																"secureInput": false
+															},
+															"userProperties": [],
+															"typeProperties": {
+																"source": {
+																	"type": "SqlServerSource",
+																	"sqlReaderQuery": {
+																		"value": "@concat('SELECT * FROM Sales.',item().DATASET_NAME,' WHERE LastEditedWhen>','''',item().LAST_LOAD_TIME,'''')",
+																		"type": "Expression"
+																	},
+																	"queryTimeout": "02:00:00",
+																	"partitionOption": "None"
+																},
+																"sink": {
+																	"type": "DelimitedTextSink",
+																	"storeSettings": {
+																		"type": "AzureBlobFSWriteSettings"
+																	},
+																	"formatSettings": {
+																		"type": "DelimitedTextWriteSettings",
+																		"quoteAllText": true,
+																		"fileExtension": ".txt"
+																	}
+																},
+																"enableStaging": false,
+																"translator": {
+																	"type": "TabularTranslator",
+																	"typeConversion": true,
+																	"typeConversionSettings": {
+																		"allowDataTruncation": true,
+																		"treatBooleanAsNumber": false
+																	}
+																}
+															},
+															"inputs": [
+																{
+																	"referenceName": "SALES_SOURCE",
+																	"type": "DatasetReference",
+																	"parameters": {
+																		"TABLE_NAME": {
+																			"value": "@item().DATASET_NAME",
+																			"type": "Expression"
+																		},
+																		"SCHEMA_NAME": "SALES"
+																	}
+																}
+															],
+															"outputs": [
+																{
+																	"referenceName": "SALES_ADFS",
+																	"type": "DatasetReference",
+																	"parameters": {
+																		"TABLE_NAME": {
+																			"value": "@item().DATASET_NAME",
+																			"type": "Expression"
+																		}
+																	}
+																}
+															]
+														},
+														{
+															"name": "Stored procedure1_copy2",
+															"type": "SqlServerStoredProcedure",
+															"dependsOn": [
+																{
+																	"activity": "Copy data1_copy2",
+																	"dependencyConditions": [
+																		"Succeeded"
+																	]
+																}
+															],
+															"policy": {
+																"timeout": "0.12:00:00",
+																"retry": 0,
+																"retryIntervalInSeconds": 30,
+																"secureOutput": false,
+																"secureInput": false
+															},
+															"userProperties": [],
+															"typeProperties": {
+																"storedProcedureName": "[dbo].[UpdateWatermark_WWI_METADATA_SALES]",
+																"storedProcedureParameters": {
+																	"CurrentDateTime": {
+																		"value": {
+																			"value": "@utcNow()",
+																			"type": "Expression"
+																		},
+																		"type": "DateTime"
+																	},
+																	"DatasetName": {
+																		"value": {
+																			"value": "@item().DATASET_NAME",
+																			"type": "Expression"
+																		},
+																		"type": "String"
+																	}
+																}
+															},
+															"linkedServiceName": {
+																"referenceName": "LS_OnPrem_SQLServer_WWI",
+																"type": "LinkedServiceReference"
+															}
+														}
+													]
+												}
+											}
+										]
+									},
+									{
+										"value": "Case3"
+									}
+								]
+							}
+						},
+						{
+							"name": "Copy data1_copy1_copy1",
+							"type": "Copy",
 							"dependsOn": [
 								{
 									"activity": "Set variable1",
@@ -108,10 +389,117 @@
 							"typeProperties": {
 								"source": {
 									"type": "SqlServerSource",
-									"sqlReaderQuery": {
-										"value": "@concat(\n'SELECT COUNT(*) AS T FROM Sales.',\nitem().DATASET_NAME,\n' WHERE LastEditedWhen > ''',\nitem().LAST_LOAD_TIME,\n''''\n)\n",
-										"type": "Expression"
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
 									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SALES_SOURCE",
+									"type": "DatasetReference",
+									"parameters": {
+										"TABLE_NAME": {
+											"value": "@item().DATASET_NAME",
+											"type": "Expression"
+										},
+										"SCHEMA_NAME": "SALES"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "SALES_ADFS",
+									"type": "DatasetReference",
+									"parameters": {
+										"TABLE_NAME": {
+											"value": "@item().DATASET_NAME",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						},
+						{
+							"name": "Stored procedure1_copy1_copy1",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "Copy data1_copy1_copy1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[UpdateWatermark_WWI_METADATA_SALES]",
+								"storedProcedureParameters": {
+									"CurrentDateTime": {
+										"value": {
+											"value": "@utcNow()",
+											"type": "Expression"
+										},
+										"type": "DateTime"
+									},
+									"DatasetName": {
+										"value": {
+											"value": "@item().DATASET_NAME",
+											"type": "Expression"
+										},
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "LS_OnPrem_SQLServer_WWI",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "Lookup_RowCount",
+							"type": "Lookup",
+							"state": "Inactive",
+							"onInactiveMarkAs": "Succeeded",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"sqlReaderQuery": "@concat('SELECT COUNT(*) AS T FROM Sales.', item().DATASET_NAME, ' WHERE LastEditedWhen > ''', item().LAST_LOAD_TIME, '''')\n",
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
 								},
@@ -123,136 +511,36 @@
 							}
 						},
 						{
-							"name": "If Condition1",
-							"type": "IfCondition",
+							"name": "Notebook1",
+							"type": "DatabricksNotebook",
 							"dependsOn": [
 								{
-									"activity": "Lookup_RowCount",
+									"activity": "Stored procedure1_copy1_copy1",
 									"dependencyConditions": [
 										"Succeeded"
 									]
 								}
 							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
-								"expression": {
-									"value": "@greater(activity('Lookup_RowCount').output.value[0].T, 0)",
-									"type": "Expression"
-								},
-								"ifTrueActivities": [
-									{
-										"name": "Copy data1",
-										"type": "Copy",
-										"dependsOn": [],
-										"policy": {
-											"timeout": "0.12:00:00",
-											"retry": 0,
-											"retryIntervalInSeconds": 30,
-											"secureOutput": false,
-											"secureInput": false
-										},
-										"userProperties": [],
-										"typeProperties": {
-											"source": {
-												"type": "SqlServerSource",
-												"sqlReaderQuery": {
-													"value": "@concat('SELECT * FROM Sales.',item().DATASET_NAME,' WHERE LastEditedWhen>','''',item().LAST_LOAD_TIME,'''')",
-													"type": "Expression"
-												},
-												"queryTimeout": "02:00:00",
-												"partitionOption": "None"
-											},
-											"sink": {
-												"type": "DelimitedTextSink",
-												"storeSettings": {
-													"type": "AzureBlobFSWriteSettings"
-												},
-												"formatSettings": {
-													"type": "DelimitedTextWriteSettings",
-													"quoteAllText": true,
-													"fileExtension": ".txt"
-												}
-											},
-											"enableStaging": false,
-											"translator": {
-												"type": "TabularTranslator",
-												"typeConversion": true,
-												"typeConversionSettings": {
-													"allowDataTruncation": true,
-													"treatBooleanAsNumber": false
-												}
-											}
-										},
-										"inputs": [
-											{
-												"referenceName": "SALES_SOURCE",
-												"type": "DatasetReference",
-												"parameters": {
-													"TABLE_NAME": {
-														"value": "@item().DATASET_NAME",
-														"type": "Expression"
-													},
-													"SCHEMA_NAME": "SALES"
-												}
-											}
-										],
-										"outputs": [
-											{
-												"referenceName": "SALES_ADFS",
-												"type": "DatasetReference",
-												"parameters": {
-													"TABLE_NAME": {
-														"value": "@item().DATASET_NAME",
-														"type": "Expression"
-													}
-												}
-											}
-										]
-									},
-									{
-										"name": "Stored procedure1",
-										"type": "SqlServerStoredProcedure",
-										"dependsOn": [
-											{
-												"activity": "Copy data1",
-												"dependencyConditions": [
-													"Succeeded"
-												]
-											}
-										],
-										"policy": {
-											"timeout": "0.12:00:00",
-											"retry": 0,
-											"retryIntervalInSeconds": 30,
-											"secureOutput": false,
-											"secureInput": false
-										},
-										"userProperties": [],
-										"typeProperties": {
-											"storedProcedureName": "[dbo].[UpdateWatermark_WWI_METADATA_SALES]",
-											"storedProcedureParameters": {
-												"CurrentDateTime": {
-													"value": {
-														"value": "@utcNow()",
-														"type": "Expression"
-													},
-													"type": "DateTime"
-												},
-												"DatasetName": {
-													"value": {
-														"value": "@item().DATASET_NAME",
-														"type": "Expression"
-													},
-													"type": "String"
-												}
-											}
-										},
-										"linkedServiceName": {
-											"referenceName": "LS_OnPrem_SQLServer_WWI",
-											"type": "LinkedServiceReference"
-										}
+								"notebookPath": "/Shared/updated_one",
+								"baseParameters": {
+									"fileName": {
+										"value": "@item().DATASET_NAME",
+										"type": "Expression"
 									}
-								]
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "bronzeAzureDatabricks",
+								"type": "LinkedServiceReference"
 							}
 						}
 					]
