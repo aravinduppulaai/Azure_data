@@ -389,7 +389,10 @@
 							"typeProperties": {
 								"source": {
 									"type": "SqlServerSource",
-									"sqlReaderQuery": "@concat('SELECT * FROM Sales.',item().DATASET_NAME,' \nWHERE LastEditedWhen>','''',item().LAST_LOAD_TIME,'''')",
+									"sqlReaderQuery": {
+										"value": "@concat('SELECT * FROM Sales.',item().DATASET_NAME,' \nWHERE LastEditedWhen>','''',item().LAST_LOAD_TIME,'''')",
+										"type": "Expression"
+									},
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
 								},
@@ -575,6 +578,30 @@
 									"enablePartitionDiscovery": false
 								}
 							}
+						},
+						{
+							"name": "Set variable2",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Notebook1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "OUPUT",
+								"value": {
+									"value": "@activity('Notebook1').output.runOutput",
+									"type": "Expression"
+								}
+							}
 						}
 					]
 				}
@@ -586,6 +613,9 @@
 			},
 			"SALES_FINALY": {
 				"type": "Array"
+			},
+			"OUPUT": {
+				"type": "String"
 			}
 		},
 		"folder": {
