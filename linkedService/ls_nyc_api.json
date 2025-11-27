@@ -1,0 +1,12 @@
+{
+	"name": "ls_nyc_api",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://d37ci6vzurychx.cloudfront.net",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
