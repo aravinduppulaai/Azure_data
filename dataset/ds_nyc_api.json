@@ -1,0 +1,23 @@
+{
+	"name": "ds_nyc_api",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_nyc_api",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"P_MONTH_NUMBER": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": {
+				"value": "@concat('/trip-data/yellow_tripdata_2025-',dataset().P_MONTH_NUMBER,'.parquet')",
+				"type": "Expression"
+			}
+		},
+		"schema": []
+	}
+}
