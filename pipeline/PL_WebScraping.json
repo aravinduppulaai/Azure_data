@@ -1,0 +1,99 @@
+{
+	"name": "PL_WebScraping",
+	"properties": {
+		"activities": [
+			{
+				"name": "api",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@createArray('01','02','03','04','05','06','07','08','09','10','11','12')",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "ParquetSource",
+									"storeSettings": {
+										"type": "HttpReadSettings",
+										"requestMethod": "GET"
+									},
+									"formatSettings": {
+										"type": "ParquetReadSettings"
+									}
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"enableSkipIncompatibleRow": true,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_http_nyc",
+									"type": "DatasetReference",
+									"parameters": {
+										"P_File_Name": {
+											"value": "@item()",
+											"type": "Expression"
+										},
+										"P_Year": {
+											"value": "@pipeline().parameters.P_Year",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_nyc_Parquet",
+									"type": "DatasetReference",
+									"parameters": {
+										"P_File_Name": {
+											"value": "@concat('yellow_tripdata_',pipeline().parameters.P_Year,'-',item(),'.parquet')",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"P_Year": {
+				"type": "string"
+			}
+		},
+		"annotations": []
+	}
+}
