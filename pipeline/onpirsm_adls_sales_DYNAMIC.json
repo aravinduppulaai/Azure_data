@@ -389,6 +389,7 @@
 							"typeProperties": {
 								"source": {
 									"type": "SqlServerSource",
+									"sqlReaderQuery": "@concat('SELECT * FROM Sales.',item().DATASET_NAME,' \nWHERE LastEditedWhen>','''',item().LAST_LOAD_TIME,'''')",
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
 								},
@@ -499,7 +500,10 @@
 							"typeProperties": {
 								"source": {
 									"type": "SqlServerSource",
-									"sqlReaderQuery": "@concat('SELECT COUNT(*) AS T FROM Sales.', item().DATASET_NAME, ' WHERE LastEditedWhen > ''', item().LAST_LOAD_TIME, '''')\n",
+									"sqlReaderQuery": {
+										"value": "@concat('SELECT COUNT(*) AS T FROM Sales.', item().DATASET_NAME, ' WHERE LastEditedWhen > ''', item().LAST_LOAD_TIME, '''')\n",
+										"type": "Expression"
+									},
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
 								},
@@ -530,7 +534,7 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"notebookPath": "/Shared/updated_one",
+								"notebookPath": "/Users/azure30data@gmail.com/csv",
 								"baseParameters": {
 									"fileName": {
 										"value": "@item().DATASET_NAME",
@@ -539,7 +543,7 @@
 								}
 							},
 							"linkedServiceName": {
-								"referenceName": "bronzeAzureDatabricks",
+								"referenceName": "AzureDatabricks1",
 								"type": "LinkedServiceReference"
 							}
 						}
