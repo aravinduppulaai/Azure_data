@@ -1,0 +1,19 @@
+{
+	"name": "AzureDataLakeStorage2",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://storage82025.dfs.core.windows.net/",
+			"tenant": "cca0b62c-6b3a-4739-a448-88b329066072",
+			"servicePrincipalId": "80ee18e7-5973-46ed-922f-07a3f573d515",
+			"servicePrincipalCredentialType": "ServicePrincipalKey",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIyOWUzOTVhMC01MjdlLTRiMmItOTNjNS03ZmRhNmVhYmYyZWQiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime1",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
