@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "api",
+				"name": "fully_Dymainc",
 				"type": "ForEach",
 				"dependsOn": [],
 				"userProperties": [],
@@ -79,6 +79,10 @@
 									"parameters": {
 										"P_File_Name": {
 											"value": "@concat('yellow_tripdata_',pipeline().parameters.P_Year,'-',item(),'.parquet')",
+											"type": "Expression"
+										},
+										"P_year": {
+											"value": "@pipeline().parameters.P_Year",
 											"type": "Expression"
 										}
 									}

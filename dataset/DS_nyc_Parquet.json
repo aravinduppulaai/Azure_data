@@ -8,6 +8,9 @@
 		"parameters": {
 			"P_File_Name": {
 				"type": "string"
+			},
+			"P_year": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
@@ -17,6 +20,10 @@
 				"type": "AzureBlobFSLocation",
 				"fileName": {
 					"value": "@dataset().P_File_Name",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().P_year",
 					"type": "Expression"
 				},
 				"fileSystem": "nyc"
