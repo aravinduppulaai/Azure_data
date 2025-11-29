@@ -1,5 +1,13 @@
 {
 	"name": "Azuredata18",
+	"properties": {
+		"globalParameters": {
+			"aadad": {
+				"type": "string",
+				"value": "er"
+			}
+		}
+	},
 	"location": "eastus",
 	"identity": {
 		"type": "SystemAssigned",
