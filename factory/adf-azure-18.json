@@ -1,0 +1,9 @@
+{
+	"name": "adf-azure-18",
+	"location": "westus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "3a8d1798-3682-437c-b0b8-63f95f473a12",
+		"tenantId": "9414cf6a-5586-43a7-a854-a39e626b18c5"
+	}
+}
