@@ -1,6 +1,0 @@
-{
-	"name": "integrationRuntime-local-desktop",
-	"properties": {
-		"type": "SelfHosted"
-	}
-}
