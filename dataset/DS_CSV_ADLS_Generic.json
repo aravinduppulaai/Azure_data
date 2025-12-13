@@ -23,7 +23,7 @@
 					"value": "@concat('bronze/',dataset().p_file_name)",
 					"type": "Expression"
 				},
-				"fileSystem": "wwi"
+				"fileSystem": "projects"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

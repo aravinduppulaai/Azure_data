@@ -156,6 +156,33 @@
 								"referenceName": "LS_OnPrem_SQLServer_WWI",
 								"type": "LinkedServiceReference"
 							}
+						},
+						{
+							"name": "Notebook1",
+							"type": "DatabricksNotebook",
+							"dependsOn": [
+								{
+									"activity": "Update_WaterMark _WWI_Metadata",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"notebookPath": "/Users/aravinduppula.18@outlook.com/full end tp end"
+							},
+							"linkedServiceName": {
+								"referenceName": "AzureDatabricks3",
+								"type": "LinkedServiceReference"
+							}
 						}
 					]
 				}
