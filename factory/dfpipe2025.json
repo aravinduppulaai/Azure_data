@@ -1,0 +1,9 @@
+{
+	"name": "dfpipe2025",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "55a3e2d2-e5b3-4c6c-adf4-ee8cb6d38b22",
+		"tenantId": "12b69c3a-2348-40d1-aafa-14e06f2681c7"
+	}
+}
