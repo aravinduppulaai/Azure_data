@@ -1,6 +1,9 @@
 {
 	"name": "integrationRuntime-locals-desktop",
 	"properties": {
-		"type": "SelfHosted"
+		"type": "SelfHosted",
+		"typeProperties": {
+			"selfContainedInteractiveAuthoringEnabled": false
+		}
 	}
 }
