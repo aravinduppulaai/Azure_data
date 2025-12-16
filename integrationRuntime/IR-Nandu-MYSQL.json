@@ -1,9 +1,0 @@
-{
-	"name": "IR-Nandu-MYSQL",
-	"properties": {
-		"type": "SelfHosted",
-		"typeProperties": {
-			"selfContainedInteractiveAuthoringEnabled": true
-		}
-	}
-}
