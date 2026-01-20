@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "SELECT * FROM WWI_METADATA WHERE STATUS='Active'",
+						"sqlReaderQuery": "SELECT * FROM WWI_METADATA_SALES WHERE STATUS='INACTIVE'",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -134,7 +134,7 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"storedProcedureName": "[dbo].[UpdateWatermark_WWI_METADATA]",
+								"storedProcedureName": "[dbo].[UpdateWatermark_WWI_METADATA_SALES1]",
 								"storedProcedureParameters": {
 									"CurrentDateTime": {
 										"value": {
