@@ -1,0 +1,6 @@
+{
+	"name": "inte-local",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}
