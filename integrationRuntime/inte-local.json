@@ -1,9 +1,0 @@
-{
-	"name": "inte-local",
-	"properties": {
-		"type": "SelfHosted",
-		"typeProperties": {
-			"selfContainedInteractiveAuthoringEnabled": true
-		}
-	}
-}
