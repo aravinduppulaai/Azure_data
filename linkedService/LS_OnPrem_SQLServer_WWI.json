@@ -5,13 +5,13 @@
 		"annotations": [],
 		"type": "SqlServer",
 		"typeProperties": {
-			"server": "192.168.0.100",
+			"server": "192.168.0.10",
 			"database": "WideWorldImporters",
 			"encrypt": "mandatory",
 			"trustServerCertificate": true,
 			"authenticationType": "SQL",
 			"userName": "sa",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIxNjRmZjQ3Ny0yYjk5LTQ5MzEtOWY1Yy1lM2ZmOWViMzM5ZmIiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJiNzFmOTFjZi02ZmUwLTQzZjQtYTQzYS01ZTk4YTVhZmNlNGUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "inte-local",
