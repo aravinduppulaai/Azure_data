@@ -10,8 +10,8 @@
 			"encrypt": "mandatory",
 			"trustServerCertificate": true,
 			"authenticationType": "SQL",
-			"userName": "sa",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJjYWNlMjI5Yi1kMGQ4LTQ3Y2MtYmZhYS0yZGQ2ZjQ1ZjBmM2UiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"userName": "sql",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI2ZGE1MWJmYS1jNDIyLTQwOWMtOTdmMC1lMjI3NjFhZWU5MGMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "inte-local",
