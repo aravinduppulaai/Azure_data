@@ -11,10 +11,10 @@
 			"trustServerCertificate": true,
 			"authenticationType": "SQL",
 			"userName": "sa",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIyYmZmYzZlNy1jZGE1LTQyNTItYWI3NS00YTI4YjVhNjM1MzkiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIwMzlmMDEzYy02MDNkLTRjZDItODY1Ny1lOTc4MmJmZTJjMzkiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
-			"referenceName": "inte-local",
+			"referenceName": "uploadnkjen",
 			"type": "IntegrationRuntimeReference"
 		}
 	}
