@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "SELECT * FROM WWI_METADATA_SALES WHERE STATUS='INACTIVE'",
+						"sqlReaderQuery": "SELECT * FROM WWI_METADATA_SALES WHERE STATUS='ACTIVE'",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -160,6 +160,8 @@
 						{
 							"name": "Notebook1",
 							"type": "DatabricksNotebook",
+							"state": "Inactive",
+							"onInactiveMarkAs": "Succeeded",
 							"dependsOn": [
 								{
 									"activity": "Update_WaterMark _WWI_Metadata",
