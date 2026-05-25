@@ -1,0 +1,23 @@
+{
+	"name": "Json1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "storagepostsql",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@utcNow()",
+					"type": "Expression"
+				},
+				"folderPath": "bronze",
+				"fileSystem": "postgre"
+			}
+		},
+		"schema": {}
+	}
+}
