@@ -1,0 +1,76 @@
+Authentication:
+---------------
+Account Key
+SAS - Shared Access Signature
+SPN - Service Principle Name
+Managed Identity
+
+Ref: https://learn.microsoft.com/en-us/azure/databricks/connect/storage/azure-storage#connect-to-azure-data-lake-storage-or-blob-storage-using-azure-credentials
+
+
+sp=r&st=2025-11-26T12:53:20Z&se=2025-11-26T21:08:20Z&spr=https&sv=2024-11-04&sr=c&sig=%2B7MMBaNLD3azqhnDh9wfFOwyrQwn5B79DY2VAcp8afg%3D
+
+https://storage82025.blob.core.windows.net/wwi?sp=r&st=2025-11-26T12:53:20Z&se=2025-11-26T21:08:20Z&spr=https&sv=2024-11-04&sr=c&sig=%2B7MMBaNLD3azqhnDh9wfFOwyrQwn5B79DY2VAcp8afg%3D
+
+
+AD - Active Directory Windows/Linux/Other OS
+
+Legacy system - 
+
+
+Venkat - 11002345
+Nandu  - 11223344
+
+Microsoft Entra:
+
+SPN: Creation
+
+Display Name: SPN-First
+
+Application (client) ID: 246dc739-467c-4709-a94f-66270836026d
+
+Directory (tenant) ID: cca0b62c-6b3a-4739-a448-88b329066072
+
+xcQ8Q~4LBxiyqLCxJUa515VTbBVSGSCBt~vhHbs7
+
+Permission:
+
+
+Storage Account roles:
+
+Storage Blob Data Contributor
+
+
+LTS - Long Term Support
+
+
+
+*************************
+
+
+https://adb-1466237908913855.15.azuredatabricks.net/files/tables/yellow_tripdata_2025_01.csv/part-00000-tid-5705022221545980473-f62ff4d0-4779-4923-aee3-08c1469bb5d3-133-1-c000.csv
+
+
+files/tables/yellow_tripdata_2025_01.csv/part-00000-tid-5705022221545980473-f62ff4d0-4779-4923-aee3-08c1469bb5d3-133-1-c000.csv
+
+CSV vs Parquet file compression
+
+dbutils.fs.ls
+dbutils.fs.mount
+dbutils.fs.unmount
+dbutils.fs.refreshmount
+
+
+df = spark....
+df.display()
+df.count()
+df.printSchema()
+options headers
+options inferschema
+
+
+dbfs - Databricks file system
+
+
+mounting
+
